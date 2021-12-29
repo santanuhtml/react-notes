@@ -1,4 +1,5 @@
 1. Functional Component
+2. Class Component
 
 ============================
 1. Functional Component
@@ -70,7 +71,7 @@ reportWebVitals();
 
 ---------------------------
 Code:
-(i) With Props
+(ii) With Props
 ---------------------------
 Note: In this page we take props called 'name'
 Name.js
@@ -101,5 +102,116 @@ function App() {
 }
 
 export default App;
-     
-------------       
+
+
+============================
+2. Class Component
+============================    
+Code:
+(i) Without Props
+---------------------------
+Note:
+In this page we create a Component called 'FullName'
+Name.js
+------------
+
+import React from 'react';
+
+class FullName extends React.PureComponent{
+    render(){
+        return(
+            <h1>Hi, Ram.</h1>
+        )
+    }
+}
+
+export default FullName;
+
+
+------------
+Note:
+In this page we call the priviously created Component 'FullName' like
+a Tag <FullName />
+App.js
+------------
+
+import FullName from "./components/Name";
+
+function App() {
+  return (
+      <FullName />
+  );
+}
+
+export default App;
+
+---------------------------
+Code:
+(ii) With Props
+---------------------------
+Note: In this page we take props called 'name'
+Name.js
+------------
+import React from 'react';
+
+class FullName extends React.PureComponent{
+    render(){
+        return(
+            <h1>Hi, {this.props.name}</h1>
+        )
+    }
+}
+
+export default FullName;
+
+------------
+OR 
+Note:
+Here we dis Structuring our code so that we don't need to 
+type {this.props.name}, we can only use {name}.
+Name.js
+------------
+import React from 'react';
+
+class FullName extends React.PureComponent{
+    render(){
+        const {name} = this.props;
+        return(
+            <h1>Hi, {name}</h1>
+        )
+    }
+}
+
+export default FullName;
+
+------------
+Note: Here we assign the propos value.
+App.js
+------------     
+
+import FullName from "./components/Name";
+
+function App() {
+  return (
+      <FullName name="Ram" />
+  );
+}
+
+export default App;
+
+------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
