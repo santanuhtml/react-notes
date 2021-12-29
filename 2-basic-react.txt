@@ -1,5 +1,7 @@
 1. Functional Component
 2. Class Component
+3. React State
+4. React setState
 
 ============================
 1. Functional Component
@@ -199,7 +201,125 @@ function App() {
 
 export default App;
 
+
+============================
+3. React State
+============================
+Code:
+-------------
+Note:
+i.  In this page we create a Component called 'FullName'
+    and we store value using 'State'.
+ii. Again here we use dis Structuring our code so that we don't need to 
+    type {this.state.name}, we can only use {name}.
+
+Name.js
 ------------
+import React from 'react';
+
+class FullName extends React.PureComponent{
+    constructor (props){
+        super(props);
+        this.state = {
+            name: 'Ram',
+        }
+    }
+
+    render(){
+        const {name} = this.state;
+        return(
+            <h1>Hi, {name}</h1>
+        )
+    }
+}
+
+export default FullName;
+
+***************************
+Name.js
+Note:
+constructor (props){
+  super(props);
+    this.state = {
+       name: 'Ram',
+    }
+}
+
+If this external props value not require to manage any task 
+of 'ths.state' object then we can not need to use constructor(),
+we can directly use this: 
+
+state = {name: 'Ram',}
+
+***************************
+Code:
+-------------
+Name.js
+------------
+import React from 'react';
+
+class FullName extends React.PureComponent{
+    state = {name: 'Ram',}
+
+    render(){
+        const {name} = this.state;
+        return(
+            <h1>Hi, {name}</h1>
+        )
+    }
+}
+
+export default FullName;
+
+============================
+4. React setState
+============================
+Code:
+Name.js
+------------
+
+import React from 'react';
+
+class FullName extends React.PureComponent{
+    state = {name: 'Ram',}
+    
+    // constructor (props){
+    //     super(props);
+    //     this.state = {
+    //         name: 'Ram',
+    //     }
+    // }
+
+    componentDidMount(){
+        setTimeout(() =>{
+            this.setState({name: 'Jai Shree Ram'})
+       }, 5000);
+    }
+
+    render(){
+        const {name} = this.state;
+        return(
+            <h1>Hi, {name}</h1>
+        )
+    }
+}
+
+export default FullName;
+
+------------
+App.js
+------------     
+
+import FullName from "./components/Name";
+
+function App() {
+  return (
+      <FullName />
+  );
+}
+
+export default App;
+
 
 
 
