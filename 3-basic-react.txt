@@ -1,0 +1,105 @@
+1. Functional Component
+
+============================
+1. Functional Component
+============================
+Folder structure:
+[]src
+    - index.js
+    
+    - App.js
+    
+    - []components
+	- Name.js
+
+
+---------------------------
+Code:
+(i) Without Props
+---------------------------
+Note:
+In this page we create a Component called 'FullName'
+Name.js
+------------
+
+import React from 'react';
+
+function FullName(){
+    return(
+        <h1>Hi, Ram.</h1>
+    )
+}
+
+export default FullName;
+
+------------
+Note:
+In this page we call the priviously created Component 'FullName' like
+a Tag <FullName />
+App.js
+------------
+
+import FullName from "./components/Name";
+
+function App() {
+  return (
+      <FullName /> 
+  );
+}
+
+export default App;
+
+------------
+index.js
+------------
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+reportWebVitals();
+
+
+---------------------------
+Code:
+(i) With Props
+---------------------------
+Note: In this page we take props called 'name'
+Name.js
+------------
+
+import React from 'react';
+
+function FullName({name}){
+    return(
+        <h1>Hi, {name}.</h1>
+    )
+}
+
+export default FullName;
+     
+
+------------
+Note: Here we assign the propos value.
+App.js
+------------     
+
+import FullName from "./components/Name";
+
+function App() {
+  return (
+      <FullName name="Ram" /> 
+  );
+}
+
+export default App;
+     
+------------       
