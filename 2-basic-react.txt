@@ -2,6 +2,9 @@
 2. Class Component
 3. React State
 4. React setState
+5. Using State Correctly
+6. React Event Handling
+7. Conditional Rendering
 
 ============================
 1. Functional Component
@@ -271,6 +274,7 @@ class FullName extends React.PureComponent{
 
 export default FullName;
 
+
 ============================
 4. React setState
 ============================
@@ -321,17 +325,357 @@ function App() {
 export default App;
 
 
+============================
+5. Using State Correctly
+============================
+I. Don't Modify State Directly
+----------------------------
+WRONG WAY:
+------------
+this.state.name = "Jai Shree Ram";   XXX
+
+-------------
+RIGHT WAY:
+------------
+this.setState({name: 'Jai Shree Ram'})
+
+----------------------------
+II. State Update May Be Asynchronous:
+----------------------------
+Note:
+Under 'setState()' if we need to call our old 'state' then
+we use this way
+------------
+
+this.setState((state, props) => ({
+  counter: state.counter + props.increment,
+}));
 
 
+----------------------------
+III. State Update May Be Asynchronous:
+----------------------------
+'state' may have single value or it may have multiple values.
+Also 'state' may have ARRAY or Object data type.
+Example1:
+------------
+state = {name: 'Ram',}
+------------
+
+Example2:
+------------
+state = {name: 'Ram', address:'Ayodhya'}
+------------
+
+Example3:
+------------
+constructor (props){
+  super(props);
+     this.state = {
+        posts: [],
+	comments: [],
+     }
+}
+------------
+
+Here we can update 'post' and 'comment' array independently
+with separate 'setState({})'
 
 
+============================
+6. React Event Handling
+============================
+Folder structure:
+[]src
+    - index.js
+    
+    - App.js
+    
+    - []components
+	- EventHandling.js
 
 
+----------------------------
+Example1:
+Note:
+Here on button click an event occurs
+----------------------------
+------------
+EventHandling.js
+------------
+
+import React from 'react';
+
+class ButtonEvent extends React.PureComponent{
+    ButtonClick = () =>{
+        console.log('Button Event Done!');
+    }
+    
+    render(){
+        return(
+            <button type='button' onClick={this.ButtonClick} >Click Here</button>
+        )
+    }
+}
+
+export default ButtonEvent;
+
+------------
+
+Note:
+Here we use 
+onClick={this.ButtonClick}
+
+we don't use
+onClick={this.ButtonClick()}
+
+Otherwise this function run itself.
+
+------------
+App.js
+------------
+
+import ButtonEvent from "./components/EventHandling";
+
+function App() {
+  return (
+      <ButtonEvent />
+  );
+}
+
+export default App;
 
 
+----------------------------
+Example2:
+Note:
+Here we store default value under 'state'. 
+i.  After click on button, 'onClick' event runs and 
+    it call 'ButtonClick' function, so we get new 'state' value
+    
+    this.setState({name: 'Jai Shree Ram',})
+    
+----------------------------
+------------
+EventHandling.js
+------------
 
+import React from 'react';
 
+class ButtonEvent extends React.PureComponent{
+    state = {name: 'Ram',};
 
+    ButtonClick = () =>{
+        this.setState({
+            name: 'Jai Shree Ram',
+        })
+    }
 
+    render(){
+        const {name} = this.state;
+        return(
+            <div>
+                <p>{name}</p>
+                <button type='button' onClick={this.ButtonClick} >Click Here</button>
+            </div>
+        )
+    }
+}
 
+export default ButtonEvent;
+
+------------
+Note:
+I.
+Here we also dis structuring our code
+CODE:
+const {name} = this.state;
+
+Otherwise write like {this.state.name} in place of {name}
+
+II.***
+//adding Multiple state
+state = {name: 'Ram', address:'Ayodhya'}
+
+//dis structuring multiple state
+const {name, address} = this.state;
  
+------------
+App.js
+------------
+import ButtonEvent from "./components/EventHandling";
+
+function App() {
+  return (
+      <ButtonEvent />
+  );
+}
+
+export default App;
+
+
+----------------------------
+Example3:
+Note:
+Here we send parameter via 'onClick' 
+----------------------------
+------------
+EventHandling.js
+------------
+Same code as before 
+Edit 1:
+-------
+<button type='button' onClick={() => this.ButtonClick('Jai Shree Ram')}>Click Here</button>
+-------
+
+Edit2:
+-------
+ButtonClick = (name) =>{
+   this.setState({
+       name
+   })
+}
+
+------------
+Full Code:
+EventHandling.js
+------------
+import React from 'react';
+
+class ButtonEvent extends React.PureComponent{
+    state = {name: 'Ram',};
+
+    ButtonClick = (name) =>{
+        this.setState({
+            name
+        })
+    }
+
+    render(){
+        const {name} = this.state;
+        return(
+            <div>
+                <p>{name}</p>
+                <button type='button' onClick={() => this.ButtonClick('Jai Shree Ram')}>Click Here</button>
+            </div>
+        )
+    }
+}
+
+export default ButtonEvent;
+
+
+
+============================
+7. Conditional Rendering
+============================
+Example1:
+ApplyingTernary.js
+----------------------------
+
+import React from 'react';
+
+class TernaryCondition extends React.PureComponent{
+    state = {name: 'Jai Shree Ram'};
+
+    ButtonClick = (name) =>{
+        this.setState({name});
+    }
+
+    render(){
+        const {name} = this.state;
+        return(
+            <div>
+                <p>{name}</p>
+                {name === 'Jai Shree Ram' ? 
+                (<button type='button' onClick={() => this.ButtonClick('Har Har Mahadev')}>Click Here</button>)
+                :
+                (<button type='button' onClick={() => this.ButtonClick('Jai Shree Ram')}>Click Here</button>)
+                }
+            </div>
+        )
+    }
+}
+
+export default TernaryCondition;
+
+------------
+Note:
+i. Ternary Operator
+{name == '' ? () : ()}
+------------
+------------
+App.js
+------------
+
+import TernaryCondition from "./components/ApplyingTernary";
+
+function App() {
+  return (
+    <TernaryCondition />
+  );
+}
+
+export default App;
+
+
+----------------------------
+Note:
+When we have multiple condition the we 
+will use 'if else' condition
+----------------------------
+ApplyingIfElse.js
+------------
+
+import React from 'react';
+
+class IfElseCondition extends React.PureComponent{
+    state = {name: 'Jai Shree Ram'};
+
+    ButtonClick = (name) =>{
+        this.setState({
+            name
+        })
+    }
+
+    render(){
+        const {name} = this.state;
+
+        let button;
+        if(name === 'Jai Shree Ram'){
+            button = (<button type='button' onClick={()=>this.ButtonClick('Har Har Mahadev')} >Click Here</button>)
+        }
+        else{
+            button = (<button type='button' onClick={()=>this.ButtonClick('Jai Shree Ram')} >Click Here</button>)
+        }
+
+        return(
+            <div>
+                <p>{name}</p>
+                {button}
+            </div>
+        )
+    }
+}
+
+export default IfElseCondition;
+
+------------
+App.js
+------------
+
+import IfElseCondition from "./components/ApplingIfElse";
+
+function App() {
+  return (
+      <IfElseCondition />
+  );
+}
+
+export default App;
+
+
+------------
+
+
+
