@@ -900,5 +900,13 @@ RAM
 LAXMAN
 BHARAT
 SATRUGAN
+
+NOTE:
+I.  key={Math.random()}  --> We use Key to get unique identifyer for every
+                             <UserName /> components when they are listing.
+
+II. We have to keep unique Identifyer for any perticular Listing OR Loop.
+    We do not need to maintain this Unique Identyfyer in All Project.
+
 ------------
 
