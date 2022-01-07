@@ -143,16 +143,17 @@ Dracula Official Theme (optional)
 
 ERRORS:
 1. SKIP_PREFLIGHT_CHECK=true
-
 If we get error related to 'SKIP_PREFLIGHT_CHECK=true', then create
 a file under root called '.env' and keep the line given below:
-
 .env
 ---------
 SKIP_PREFLIGHT_CHECK=true
 ---------
 
-
+2. upgrade eslint to v8 #9669
+visit page '.eslintrc' and replace
+"parser": "babel-eslint", to
+"parser": "@babel/eslint-parser",
 
 
 
