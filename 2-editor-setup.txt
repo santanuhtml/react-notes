@@ -155,6 +155,7 @@ visit page '.eslintrc' and replace
 -------------
 1.
 "parser": "babel-eslint",  ==> "parser": "@babel/eslint-parser",
+//"parser": "@babel/eslint-parser",
 
 2.
 "parserOptions": {
