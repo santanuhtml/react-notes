@@ -1,0 +1,40 @@
+React Setup:
+
+Install:
+1. Install Node js
+Note:
+Open Command Prompt (cmd)
+-> node -v //Check Node version
+
+
+2. Install Yearn
+-> npm i -g yarn  //Type this on cmd to install Yearn   
+
+3. Install React App
+(I)
+Before install 'npx create-react-app'
+kindly check 	   'create-react-app'
+already intall or not. If already 'create-react-app' installed then
+remove it.
+To Uninstall type 
+-> yarn global remove create-react-app
+
+(II)
+First move where we want to create our React App
+-> cd..\   TO MOVE BACK
+-> cd c:   TO MOVE C DRIVE
+-> cd folderName  TO INSERT INTO A FOLDER
+
+Here we use  c:\xampp\htdocs
+After this use
+
+-> npx create-react-app projectName
+.
+.
+.
+-> cd projectName
+-> code .
+-> exit
+
+VISULA STUDIO CODE OPEN WITH projectName
+
