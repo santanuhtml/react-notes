@@ -150,10 +150,22 @@ a file under root called '.env' and keep the line given below:
 SKIP_PREFLIGHT_CHECK=true
 ---------
 
-2. upgrade eslint to v8 #9669
+2. Parsing error: require() of ES Module
 visit page '.eslintrc' and replace
-"parser": "babel-eslint", to
-"parser": "@babel/eslint-parser",
+-------------
+1.
+"parser": "babel-eslint",  ==> "parser": "@babel/eslint-parser",
+
+2.
+"parserOptions": {
+  "ecmaVersion": 8  
+},
+==>
+"parserOptions": { 
+  "ecmaVersion": 8,
+  "requireConfigFile": false
+},
+
 
 
 
