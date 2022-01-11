@@ -6,6 +6,7 @@
 6. React Event Handling
 7. Conditional Rendering
 8. Listing and Keys
+9. Forms
 
 ============================
 1. Functional Component
@@ -909,4 +910,249 @@ II. We have to keep unique Identifyer for any perticular Listing OR Loop.
     We do not need to maintain this Unique Identyfyer in All Project.
 
 ------------
+
+============================
+9. Forms
+============================
+Folder structure:
+[]src
+    - index.js
+    
+    - App.js
+    
+    - []components
+	- Form.js
+
+---------------------------
+Form.js
+Example1:
+CODE:
+---------------------------
+import React from "react";
+
+class Form extends React.Component{
+    state = {
+        name: 'RAM',
+    };
+    handelChange = (e) =>{
+        console.log(e.target.value);
+        this.setState({
+            name:e.target.value,
+        })
+    }
+    render(){
+        const {name} = this.state;
+        return(
+            <div>
+                <form>
+                    <input type="text" placeholder="Type Ram" value={name} onChange={this.handelChange} />
+                    <p>{name}</p>
+                </form>
+            </div>
+        )
+    }
+}
+
+export default Form;
+
+----------------------------
+Form.js
+Example: 2 with two input Fields
+CODE:
+----------------------------
+import React from "react";
+
+class Form extends React.Component{
+    state = {
+        firstName: 'RAM',
+        lastName : ''
+    };
+    handelChange = (e) =>{
+        //console.log(e.target.value);
+        if(e.target.id === 'first'){
+            this.setState({
+                firstName:e.target.value
+            })
+        }
+        else if(e.target.id === 'last'){
+            this.setState({
+                lastName:e.target.value
+            })
+        }
+        else{
+            //console.log(e.target.value);
+        }
+        
+    }
+    render(){
+        const {firstName, lastName} = this.state;
+        return(
+            <div>
+                <form>
+                    <input type="text" id="first"  value={firstName} onChange={this.handelChange} />
+                    <p>{firstName}</p>
+                    <br />
+                    <br />
+                    <input type="text" id="last" placeholder="Last Name"  value={lastName} onChange={this.handelChange} />
+                    <p>{lastName}</p>
+                    <br />
+                    <br />
+                </form>
+            </div>
+        )
+    }
+}
+
+export default Form;
+
+---------------------------
+Form.js
+Example3:
+CODE:
+---------------------------
+import React from 'react';
+
+class Inputs extends React.Component{
+    state = {
+        name: 'Ram',
+        message: 'Your Message',
+        codeType: 'React Js',
+        isActive: true
+    }
+    handelChange = (e) =>{
+        if(e.target.type === 'text'){
+            this.setState({
+                name: e.target.value
+            })
+        }
+        else if(e.target.type === 'textarea'){
+            this.setState({
+                message: e.target.value
+            })
+        }
+        else if(e.target.id === 'codeId'){
+            this.setState({
+                codeType: e.target.value
+            })
+        }
+        else if(e.target.type === 'checkbox'){
+            this.setState({
+                isActive: e.target.checked
+            })
+        }
+        else{
+
+        }
+    }
+    render(){
+        const {name, message, codeType, isActive} = this.state;
+        return(
+            <div>
+                <form>
+                    <input type="text" value={name}  onChange={this.handelChange}/>
+                    <p>{name}</p>
+                    <br />
+                    <br />
+                    <textarea type="textarea" value={message} onChange={this.handelChange}/>
+                    <p>{message}</p>
+                    <br />
+                    <br />
+                    <select id="codeId"  value={codeType} onChange={this.handelChange}>
+                        <option value="React Js">React Js</option>
+                        <option value="Angular Js">Angular Js</option>
+                    </select>
+                    <p>{codeType}</p>
+                    <br />
+                    <br />
+                    <input type="checkbox" checked={isActive} onChange={this.handelChange}/>
+                </form>
+            </div>
+        )
+    }
+}
+
+export default Inputs;
+
+---------------------------
+Submit Form
+Example:4
+---------------------------
+
+import React from 'react';
+
+class Inputs extends React.Component{
+    state = {
+        name: 'Ram',
+        message: 'Your Message',
+        codeType: 'React Js',
+        isActive: true
+    }
+    handelChange = (e) =>{
+        if(e.target.type === 'text'){
+            this.setState({
+                name: e.target.value
+            })
+        }
+        else if(e.target.type === 'textarea'){
+            this.setState({
+                message: e.target.value
+            })
+        }
+        else if(e.target.id === 'codeId'){
+            this.setState({
+                codeType: e.target.value
+            })
+        }
+        else if(e.target.type === 'checkbox'){
+            this.setState({
+                isActive: e.target.checked
+            })
+        }
+        else{
+
+        }
+    }
+
+    submitHandel = (e) =>{
+        const {name, message, codeType, isActive} = this.state;
+        e.preventDefault();
+        console.log(name, message, codeType, isActive);
+    }
+
+    render(){
+        const {name, message, codeType, isActive} = this.state;
+        return(
+            <div>
+                <form onSubmit={this.submitHandel}>
+                    <input type="text" value={name}  onChange={this.handelChange}/>
+                    <p>{name}</p>
+                    <br />
+                    <br />
+                    <textarea type="textarea" value={message} onChange={this.handelChange}/>
+                    <p>{message}</p>
+                    <br />
+                    <br />
+                    <select id="codeId"  value={codeType} onChange={this.handelChange}>
+                        <option value="React Js">React Js</option>
+                        <option value="Angular Js">Angular Js</option>
+                    </select>
+                    <p>{codeType}</p>
+                    <br />
+                    <br />
+                    <input type="checkbox" checked={isActive} onChange={this.handelChange}/>
+                    <br />
+                    <br />
+                    <input type="submit" value="submit" />
+                </form>
+            </div>
+        )
+    }
+}
+
+export default Inputs;
+
+---------------------------
+
+
+
 
