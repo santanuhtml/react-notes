@@ -7,6 +7,7 @@
 7. Conditional Rendering
 8. Listing and Keys
 9. Forms
+10. Lifting State Up
 
 ============================
 1. Functional Component
@@ -1153,6 +1154,93 @@ export default Inputs;
 
 ---------------------------
 
+============================
+10. Lifting State Up
+============================
+Folder structure:
+[]src
+    - index.js
+    
+    - App.js
+    
+    - []components
+	- BoilingVerdict.js
+
+        - Calculator.js
+
+---------------------------
+STEP:1
+BoilingVerdict.js
+Note:
+Here we keep our calculation.
+---------------------------
+
+import React from "react";
+function BoilingVerdict({celsius = 0}){
+    if(celsius > 99){
+      return   <p>Water would  boil</p>  
+    }  
+    return   <p>Water would not  boil</p>  
+}
+export default BoilingVerdict;
+
+
+---------------------------
+Calculator.js
+Note:
+i. We keep our input field to get value from user
+ii. Here we also call component <BoilingVerdict />
+---------------------------
+
+import React from "react";
+import BoilingVerdict from './BoilingVerdict';
+
+class Calculator extends React.Component{
+    state = {
+        temerature : ''
+    }
+    onTemeratureChange = (e) =>{
+        this.setState({
+            temerature : e.target.value,
+        });
+    }
+    render(){
+        const {temerature} = this.state;
+        return(
+            <div>
+            <fieldset>
+                <legend>Enter temerature in celsius</legend>
+                <input type="text" value={temerature} onChange={this.onTemeratureChange}/>
+            </fieldset>
+            <BoilingVerdict celsius={parseFloat(temerature)} />
+            </div>
+        );
+    }
+}
+
+export default Calculator;
+
+---------------------------
+App.js
+Note:
+Finally we call Calculator component here.
+---------------------------
+
+import React from 'react';
+import Calculator from './components/Calculator';
+
+function App() {
+  return (
+      <Calculator />
+  );
+}
+
+export default App;
+
+---------------------------
+OUTPUT:
+Now we get a calculator to check boiling temperature.
+---------------------------
 
 
 
