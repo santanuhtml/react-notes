@@ -1169,7 +1169,7 @@ Folder structure:
         - Calculator.js
 
 ---------------------------
-STEP:1
+Application:1
 BoilingVerdict.js
 Note:
 Here we keep our calculation.
@@ -1240,6 +1240,138 @@ export default App;
 ---------------------------
 OUTPUT:
 Now we get a calculator to check boiling temperature.
+---------------------------
+
+Application: 2
+Here we crate another application where we have two input Fields
+Celsius and Fahrenheit which have some features
+i. When we insert Celsius value then it convert into Fahrenheit. and so on
+ii. sink both input fields
+iii. Calculate water Boil or not in given temperature.
+
+---------------------------
+
+Folder structure:
+[]src
+    - index.js
+    
+    - App.js
+    
+    - []components
+	- BoilingVerdict.js
+
+        - Calculator.js
+
+   	- TemperatureInput.js
+   
+    - []lib
+	- converter.js
+
+
+---------------------------
+BoilingVerdict.js
+---------------------------
+
+import React from "react";
+function BoilingVerdict({celsius = 0}){
+    if(celsius > 99){
+      return   <p>Water would  boil</p>  
+    }  
+    return   <p>Water would not  boil</p>  
+}
+export default BoilingVerdict;
+
+---------------------------
+TemperatureInput.js
+---------------------------
+
+import React from "react";
+
+const scaleNames = {
+    c: 'Celsius',
+    f: 'Fahrenheit',
+}
+
+function TemperatureInput({scale, temperature, onTemeratureChange }){
+
+    return(
+        <div>
+        <fieldset>
+            <legend>Enter temerature in {scaleNames[scale]}</legend>
+            <input type="text" value={temperature} onChange={(e) => onTemeratureChange(e, scale)}/>
+        </fieldset>
+        </div>
+    );
+}
+
+export default TemperatureInput;
+
+
+---------------------------
+Calculator.js
+---------------------------
+
+import React from "react";
+import { convert, toCelsius, toFahrenheit } from "../lib/converter";
+import BoilingVerdict from './BoilingVerdict';
+import TemperatureInput from "./TemperatureInput";
+
+
+class Calculator extends React.Component{
+    
+   state = {
+    temperature : '',
+    scale : 'c',
+   }
+
+   handleChange = (e, scale) =>{
+       this.setState({
+        temperature : e.target.value,
+        scale,
+       });
+   };
+
+    render(){
+
+        const {temperature , scale} = this.state;
+        const celsius = scale === 'f' ? convert(temperature, toCelsius) : temperature;
+        const fahrenheit = scale === 'c' ? convert(temperature, toFahrenheit) : temperature;
+        
+        return(
+            <div>
+            <TemperatureInput scale="c" temperature={celsius} onTemeratureChange={this.handleChange} />
+            <TemperatureInput scale="f" temperature={fahrenheit} onTemeratureChange={this.handleChange} />
+            <BoilingVerdict celsius={parseFloat(temperature)} />
+            </div>
+        );
+    }
+}
+
+export default Calculator;
+
+
+---------------------------
+converter.js
+---------------------------
+
+export function toCelsius(fahrenheit){
+    return((fahrenheit - 32) * 5)/9;
+}
+
+export function toFahrenheit(celsius){
+    return(celsius * 9) / 5 +32;
+}
+
+export function convert(temperature, convertTo){
+    const input = parseFloat(temperature);
+    if(Number.isNaN(input)){
+        return ' ';
+    }
+    const output = convertTo(input);
+    const rounded = Math.round(output * 1000) / 1000;
+    return rounded.toString();
+}
+
 ---------------------------
 
 
