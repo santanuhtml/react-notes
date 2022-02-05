@@ -1534,6 +1534,136 @@ ii. <Emoji> component sending a function called 'addEmoji' to the <Text /> compo
 iii. <Text /> conponent use this props 
 
 --------------------------
+--------------------------
+*** NESTING ***
+Now we will apply Nesting in parent to child.
+--------------------------
+Folder structure:
+[]src
+    - index.js
+    
+    - App.js
+    
+    - []components
+	
+       - []composition
+
+	 - Emoji.js
+
+	 - Bracket.js
+
+	 - Text.js
+
+
+--------------------------
+Bracket.js
+Here we add this file which have a function 'addBracket'
+also here we make this function into a props
+--------------------------
+
+import React from "react";
+
+class Bracket extends React.Component{
+    
+    
+    addBracket = (text) =>{
+        return `[ ${text} ]`;
+    }
+
+    render(){
+        return(
+            <div>
+                {this.props.children({ addBracket: this.addBracket })}
+            </div>
+        )
+    }
+}
+
+export default Bracket;
+
+--------------------------
+Text.js
+Here we take addBracket props and also check all props one by one
+and finally we return the variable text.
+--------------------------
+
+import React from 'react';
+
+function Text({addEmoji, addBracket}){
+    let text = 'I am Javascript developer.'
+    if(addEmoji){
+        text = addEmoji(text, 'HAPPY ICON');
+    }
+    if(addBracket){
+        text = addBracket(text);
+    }
+    return(
+        <div>
+            {text}
+        </div>
+    )
+}
+
+export default Text;
+
+--------------------------
+Emoji.js
+It is same as before
+--------------------------
+
+import React from "react";
+
+class Emoji extends React.Component{
+    
+    //addEmoji = (text, emoji) => `${emoji} ${text} ${emoji}`;
+    addEmoji = (text, emoji) =>{
+        return `${emoji} ${text} ${emoji}`
+    }
+
+    render(){
+        return(
+            <div>
+                {this.props.children({ addEmoji: this.addEmoji })}
+            </div>
+        )
+    }
+}
+
+export default Emoji;
+
+--------------------------
+App.js
+Here we take 
+<Emoji>
+  <Bracket>
+    <Text/>
+  </Bracket>
+</Emoji>
+According to this we pass the props.
+--------------------------
+
+import Emoji from './components/composition/Emoji';
+import Bracket from './components/composition/Bracket';
+import Text from './components/composition/Text';
+
+
+function App() {
+  return (
+      
+        <Emoji>
+          {({addEmoji}) => (
+            <Bracket>
+             {({addBracket}) => <Text addEmoji={addEmoji} addBracket={addBracket} />}
+            </Bracket>
+          )}
+        </Emoji>
+      
+  );
+}
+
+export default App;
+
+--------------------------
 
 
 
