@@ -1664,7 +1664,26 @@ function App() {
 export default App;
 
 --------------------------
+Now check OUTPU
+--------------------------
 
+Note:
+We can also test with this to prove all components are independent.
+--------------------------
+
+function App() {
+  return (
+      
+    <Bracket>
+      {({addBracket}) => <Text addBracket={addBracket} />}
+    </Bracket>
+      
+  );
+}
+
+export default App;
+
+--------------------------
 
 
 
