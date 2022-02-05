@@ -8,6 +8,7 @@
 8. Listing and Keys
 9. Forms
 10. Lifting State Up
+11. Composition vs Inheritance
 
 ============================
 1. Functional Component
@@ -1373,6 +1374,150 @@ export function convert(temperature, convertTo){
 }
 
 ---------------------------
+
+============================
+11. Composition vs Inheritance
+============================
+Inheritance:
+1. In JavaScript let we are using a class which also bring any property or method
+   from it's parent class then it's called Inheritance.
+
+2. If a child class extends it's parent class then the child class can Inherit 
+   different Properties and Method form it's Parent class
+   Example:
+   class Emoji extends React.Component{
+   }
+
+   i.  Here Emoji class extends React.Component which is a buildin Component of React.
+   ii. render(), return(), state, setState, they already written in our React.Component,
+       When every we extends React.Component by the class Emoji then we can Inherit all 
+       Property and Method of React.Component
+
+3. Inheritance is important part of OOP and in JavaScript we can achive Inheritance through class.
+
+4. In React we always use Composition in place of Inheritance. 
+   except when we create a class component then we use Inheritance by using 'extends React.Component{}'
+
+5. We don't use Inheritance because -
+   i.   If we use Inheritance then components are tightly coupled means they are dependent to eachother.
+   ii.  From child, its not clear what parent does,
+   iii. Child and Parent component relation not Clear.
+   iv.  Future Components also will be tightly coupled.
+
+	TO AVOIDE those problames we use Composition in place of Inheritance
+       
+
+
+---------------------------
+Composition
+---------------------------
+
+Folder structure:
+[]src
+    - index.js
+    
+    - App.js
+    
+    - []components
+	
+       - []composition
+
+	 - Emoji.js
+
+	 - Text.js
+
+
+---------------------------
+STEP: 1
+Text.js
+Note:
+i. Here we get addEmoji function as a props. If we get the 
+   props then we get addEmoji(text, 'HAPPY ICON') otherwise
+   we get normally 'I am Javascript developer.'
+
+   So we can say this component is fully independent.
+---------------------------
+
+import React from 'react';
+
+function Text({addEmoji}){
+    let text = 'I am Javascript developer.'
+    
+    return(
+        <div>
+            {addEmoji ? addEmoji(text, 'HAPPY ICON') : text}
+        </div>
+    )
+}
+
+export default Text
+
+---------------------------
+Emoji.js
+i.  Here we simply define this addEmoji function under the component Emoji.
+
+ii. using {this.props.children({ addEmoji: this.addEmoji })} 
+    we send the addEmoji function as a props in Text.js
+---------------------------
+
+import React from "react";
+
+class Emoji extends React.Component{
+    
+    //addEmoji = (text, emoji) => `${emoji} ${text} ${emoji}`;
+    addEmoji = (text, emoji) =>{
+        return `${emoji} ${text} ${emoji}`
+    }
+
+    render(){
+        return(
+            <div>
+                {this.props.children({ addEmoji: this.addEmoji })}
+            </div>
+        )
+    }
+}
+
+export default Emoji;
+
+
+---------------------------
+App.js
+
+i.   Here we fetch Emoji.js and Text.js
+
+ii   By using <Emoji><Text /></Emoji>
+     we make Emoji as a Parent and Text as a child
+
+iii. To send addEmoji props from <Emoji> to <Text /> component
+     we use
+     <Emoji>
+        {({addEmoji}) => <Text addEmoji={addEmoji} />}
+     </Emoji>
+
+     here we simply use function under curly bracket.
+     {
+	() =>
+     }
+--------------------------
+
+import Emoji from './components/composition/Emoji';
+import Text from './components/composition/Text';
+
+
+function App() {
+  return (
+      <div>
+        <Emoji>
+          {({addEmoji}) => <Text addEmoji={addEmoji} />}
+        </Emoji>
+      </div>
+  );
+}
+
+export default App
+
+--------------------------
 
 
 
