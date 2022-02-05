@@ -1519,5 +1519,22 @@ export default App
 
 --------------------------
 
+Note:
+<Emoji>
+   {({addEmoji}) => <Text addEmoji={addEmoji} />}
+</Emoji>
+
+Here we under stand that:
+
+i.  <Emoji> component rapped <Text /> component.
+
+ii. <Emoji> component sending a function called 'addEmoji' to the <Text /> component
+    as a props.
+
+iii. <Text /> conponent use this props 
+
+--------------------------
+
+
 
 
