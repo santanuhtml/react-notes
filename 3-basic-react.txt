@@ -1687,7 +1687,7 @@ export default App;
 --------------------------
 
 ============================
-12. React Higher Order Component
+12. React Higher Order Component (HOC)
 ============================
 We use higher order components to primarily reuse logic in React apps. 
 However, they have to render some UI.
