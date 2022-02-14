@@ -9,6 +9,7 @@
 9. Forms
 10. Lifting State Up
 11. Composition vs Inheritance
+12. React Higher Order Component (HOC)
 
 ============================
 1. Functional Component
@@ -1682,6 +1683,241 @@ function App() {
 }
 
 export default App;
+
+--------------------------
+
+============================
+12. React Higher Order Component
+============================
+We use higher order components to primarily reuse logic in React apps. 
+However, they have to render some UI.
+
+
+--------------------------
+Folder structure:
+[]src
+    - index.js
+    
+    - App.js
+    
+    - []components
+	
+       - ClickCounter.js
+ 	
+       - HoverCounter.js
+
+--------------------------
+ClickCounter.js
+--------------------------
+
+import React from "react";
+
+class ClickCounter extends React.Component{
+    state ={
+        count: 0,
+    };
+
+    incrementCount = () =>{
+        this.setState(
+            (prevState) => ({count: prevState.count + 1})
+        );
+    };
+
+    render(){
+        const {count} = this.state;
+        return(
+            <div>
+                <button type="button" onClick={this.incrementCount}>Clicked {count} times</button>
+            </div>
+        )
+    }
+}
+
+export default ClickCounter;
+
+
+--------------------------
+HoverCounter.js
+--------------------------
+
+import React from "react";
+
+class HoverCounter extends React.Component{
+    state ={
+        count: 0,
+    };
+
+    incrementCount = () =>{
+        this.setState(
+            (prevState) => ({count: prevState.count + 1})
+        );
+    };
+
+    render(){
+        const {count} = this.state;
+        return(
+            <div>
+                <h1  onMouseOver={this.incrementCount}>Hover {count} times</h1>
+            </div>
+        )
+    }
+}
+
+export default HoverCounter;
+
+
+--------------------------
+App.js
+--------------------------
+
+import ClickCounter from "./components/ClickCounter";
+import HoverCounter from "./components/HoverCounter";
+
+
+function App() {
+  return (
+      
+    <div>
+      <ClickCounter />
+      <HoverCounter />
+    </div>
+      
+  );
+}
+
+export default App;
+
+--------------------------
+Note:
+Here our code is working fine, But in both cases, we repeat the same 
+state and setState code.
+But we know in React we  will use a component-based system, which means 
+we have to make similar code reusable.
+So that we introduce HOC.
+
+HOC: 
+A Higher-Order Component is a function that takes a component as a parameter
+and turns a new Component
+Example:
+
+const NewComponent = higherOrderComponent(OriginalComponent);
+
+--------------------------
+
+Folder structure:
+
+[]src
+    - index.js
+    
+    - App.js
+    
+    - []components
+	
+       - ClickCounter.js
+ 	
+       - HoverCounter.js
+
+       - []HOC
+	   
+	    - withCounter.js
+
+--------------------------
+withCounter.js
+
+Note: 
+i.   Here we create a folder []HOC and we create  
+     a file called 'withCounter.js' inside of it.
+     **We always start name of []HOC files with 'withYourFileName.js'
+
+ii.  We create a function called 'withCounter' where we take a parameter
+     which is a Component and also returns a new Component called 'NewComponent'
+
+iii. Uder of this withCounter function we keep our repeated code or common code.
+
+iv.  Inside the parameter which is itself a component we pass the 'count' & 'incrementCount'
+     porps, which pass into the 'ClickCounter.js' & 'HoverCounter.js'
+
+--------------------------
+
+import React from 'react';
+
+const withCounter = (OriginalComponent) =>{
+    class NewComponent extends React.Component{
+        //Here we insert our common codes line
+        state ={
+            count: 0,
+        };
+    
+        incrementCount = () =>{
+            this.setState(
+                (prevState) => ({count: prevState.count + 1})
+            );
+        };
+
+        render(){
+            const {count} = this.state;
+            return(
+                <div>
+                    <OriginalComponent count={count} incrementCount={this.incrementCount} />
+                </div>
+            )
+        }
+    }
+    return NewComponent;
+}
+
+export default withCounter; 
+
+
+--------------------------
+ClickCounter.js
+
+Note:
+i.  First we import the 'withCounter' function.
+
+ii. Now we convert ClickCounter, class Component to function Component.
+    and we destrecture the count and incrementCount props.
+--------------------------
+
+
+import withCounter from "./HOC/withCounter";
+
+const ClickCounter = (props) =>{
+    const {count, incrementCount} = props;
+    return(
+        <div>
+            <button type="button" onClick={incrementCount}>
+                Click {count} times
+            </button>
+        </div>
+    );
+}
+export default withCounter(ClickCounter);
+
+
+--------------------------
+HoverCounter.js
+--------------------------
+
+import withCounter from "./HOC/withCounter";
+
+const HoverCounter = (props) =>{
+    const {count, incrementCount} = props;
+    return(
+        <div>
+            <h1 onMouseOver={incrementCount}>
+                Hover {count} times
+            </h1>
+        </div>
+    );
+}
+export default withCounter(HoverCounter);
+
+--------------------------
+
+Note:
+Finally we see that we run same project without repeat same code. 
+We reuse our code with help of HOC.
 
 --------------------------
 
