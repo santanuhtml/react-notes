@@ -8,7 +8,7 @@
 8. Listing and Keys
 9. Forms
 10. Lifting State Up
-11. Composition vs Inheritance
+11. Composition vs Inheritance (Making Component Indipendent)
 12. React Higher Order Component (HOC)
 13. React Render Props
 
@@ -1378,7 +1378,7 @@ export function convert(temperature, convertTo){
 ---------------------------
 
 ============================
-11. Composition vs Inheritance
+11. Composition vs Inheritance (Making Component Indipendent)
 ============================
 Inheritance:
 1. In JavaScript let we are using a class which also bring any property or method
