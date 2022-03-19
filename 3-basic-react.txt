@@ -7,7 +7,7 @@
 7. Conditional Rendering (if else)
 8. Listing and Keys (Component Listing using map)
 9. Forms
-10. Lifting State Up
+10. Lifting State Up (Keep input state 1 lavel up)
 11. Composition vs Inheritance (Making Component Indipendent)
 12. React Higher Order Component (HOC)
 13. React Render Props
@@ -1158,7 +1158,7 @@ export default Inputs;
 ---------------------------
 
 ============================
-10. Lifting State Up
+10. Lifting State Up (Keep input state 1 lavel up)
 ============================
 Folder structure:
 []src
