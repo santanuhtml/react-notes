@@ -5,7 +5,7 @@
 5. Using State Correctly
 6. React Event Handling
 7. Conditional Rendering (if else)
-8. Listing and Keys
+8. Listing and Keys (Component Listing using map)
 9. Forms
 10. Lifting State Up
 11. Composition vs Inheritance (Making Component Indipendent)
@@ -682,7 +682,7 @@ export default App;
 
 
 ============================
-8. Listing and Keys
+8. Listing and Keys (Component Listing using map)
 ============================
 Folder structure:
 
