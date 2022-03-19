@@ -4,7 +4,7 @@
 4. React setState
 5. Using State Correctly
 6. React Event Handling
-7. Conditional Rendering
+7. Conditional Rendering (if else)
 8. Listing and Keys
 9. Forms
 10. Lifting State Up
@@ -573,7 +573,7 @@ export default ButtonEvent;
 
 
 ============================
-7. Conditional Rendering
+7. Conditional Rendering (if else)
 ============================
 Example1:
 ApplyingTernary.js
