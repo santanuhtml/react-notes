@@ -1,0 +1,365 @@
+1. Topics
+2. Project Setup
+3. Introduction
+4. Functional Components
+5. Hooks
+6. Virtual DOM
+7. React + Viet + Tailwindcss
+8. Props
+================================
+1. Topics
+================================
+
+> React mainly use for conplex front-end desing
+  for example: on single click so many changes/ updates
+  happning on a page.
+  
+> React is libary
+
+
+> React use for SPA(Single Page Application, means page does't reload)
+
+> Core Topics:
+  . State or UI manupulation and JSX
+  . Component Reusability
+  . Props (Use to pass data on component)
+  . Hooks:useState, useEffect, useCallback (Use to Update/Changes on UI)
+  
+> Additional Topics:
+  . Router (Use to navigate)
+  . State Management: Redux, Redux toolkit, Zuntand, context API
+  . BAAS Apps (Backend as a service): appwrite, firebase, Supabase etc
+    (use to create backend)
+  . Fream Work: Next Js
+ 
+ Note: JavaScript Object Property called Props
+ 
+
+================================
+2. Project Setup
+   i.  Using create-raect-app (old way)
+   ii. Using vite
+================================
+> Reposetary creating(check video 2)
+
+i. Installation React Using create-raect-app (old way)
+   > ls
+   > npx create-react-app 01basicreact
+   > cd 01basicreact
+   > ls
+   > npm run start
+   
+   (Build use for production)
+   > npm run build
+
+
+> Check package.json file to understand the Project.
+    On React project
+    . Main dependencies are -
+      "react": "^18.2.0",        //code react package
+      "react-dom": "^18.2.0",    //Creare own Vertual Dom
+      "react-scripts": "5.0.1",  //Add script file on html page
+    
+    . Main scripts are -
+      start: use to run the project
+      build: use to build and deployment the project
+      
+  
+ ii. Installation React Using vite
+     > ls
+     > npm create vite@latest
+     > ls
+     > cd 01vitereact[PROJECT NAME]
+     > npm i
+     > npm run dev
+     
+> Check package.json file to understand the Project.  
+    . dependencies - 
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0"
+      
+    . Scripts are -
+      dev: use to run the project
+      build: use to build and deployment the project
+    
+    
+================================ 
+3. Introduction
+   Video - 3
+================================    
+> React Create it's own DOM called "Virtual DOM" which may compare actual HTML DOM.
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  
+  . createRoot create "Virtual DOM"
+  
+  . This "Virtual DOM" compare with Actual DOM and if find any changes on Actual DOM
+    then update those elements only. 
+  
+  . Using Fiber Algorithem, "Virtual DOM" did those task.
+
+> Component name and Component file name starts with UPPER CASE
+
+> JSX return only one element at a time, 
+  so we wrapp all code with in <></> called Fragment
+  
+> Using JavaScript XML(JSX) we write HTML code with in React.
+
+> .jsx use when create a component (for Vied)
+  
+> Adding Variable on JSX:
+  function App() {
+  let user = 'Santanu';
+  return (
+    <div>
+      <Chai />
+      <h1>React App using Vide | {user}</h1>
+    </div>
+    )
+  }
+  
+Note:
+Evaluate Expression: {} called Evaluate Expression means final result will display here.
+example: {user} => Santanu, {10+10+10} => 30
+       
+================================
+5. Hooks
+   I. useState() HOOK
+   II. useEffect() HOOK
+   III. useCallback() HOOK
+================================  
+
+> Hook use to update or changes on UI.  
+  
+> Import Hook before use
+  import { useState } from 'react'  
+  
+  
+---------------------------
+I. useState() HOOK
+---------------------------
+> Use to add state variable on our component
+
+Example:
+App.jsx
+---------------------------
+import { useState } from 'react'
+import './App.css'
+function App() {
+  const [counter, setCounter] = useState(15);
+  const addValue = () => {
+    setCounter(counter+1);
+  }
+  return (
+    <>
+      <h1>Chai and React! {counter}</h1>
+      <h2>Counter Value: {counter}</h2>
+      <button onClick={addValue}>Add Value {counter}</button>
+      <div>Footer {counter}</div>
+    </>
+  )
+}
+export default App
+
+---------------------------
+Note:
+const [counter, setCounter] = useState(15);
+counter      => It is a simple variable
+useState(15) => Default value set here
+setCounter   => It is a function, under which variable update done
+
+** Same Example with simple variable 'x' and funcion 'newFunction'
+
+--------------------------
+import { useState } from 'react'
+import './App.css'
+function App() {
+  const [x, newFunction] = useState(15);
+  const addValue = () => {
+    newFunction(x+1);
+  }
+  return (
+    <>
+      <h1>Chai and React! {x}</h1>
+      <h2>Counter Value: {x}</h2>
+      <button onClick={addValue}>Add Value {x}</button>
+      <div>Footer {x}</div>
+    </>
+  )
+}
+export default App     
+--------------------------  
+  
+Example: Add value and Remove value
+--------------------------
+import { useState } from 'react'
+import './App.css'
+function App() {
+  const [counter, setCounter] = useState(15);
+  const addValue = () => {
+    setCounter(counter+1);
+  }
+  const removeValue = () => {
+    setCounter(counter-1);
+  }
+  return (
+    <>
+      <h1>Chai and React! {counter}</h1>
+      <h2>Counter Value: {counter}</h2>
+      <button onClick={addValue}>Add Value {counter}</button>
+      <br />
+      <button onClick={removeValue}>Remove Value {counter}</button>
+      <div>Footer {counter}</div>
+    </>
+  )
+}
+export default App  
+
+---------------------------
+II. useEffect() HOOK
+---------------------------
+> Use to run a function first time when browser.
+
+Example: 
+--------------------------
+import { useState, useEffect } from 'react'
+
+function App() {
+  const [counter, setCounter] = useState(15);
+  const addValue = () => {
+    setCounter(counter+1);
+  }
+  useEffect(()=>{addValue()},[])
+  return (
+    <>
+      <h1>Chai and React! {counter}</h1>
+    </>
+  )
+}
+export default App  
+
+---------------------------
+III. useCallback() HOOK
+---------------------------
+> When a function depends on other dependencies then we use useCallback() HOOK
+
+================================
+6. Virtual DOM
+================================
+Video - 6,8
+Important video for interview
+
+
+================================
+7. React + Viet + Tailwindcss
+================================
+> Install React using Viet Project
+> Visit Tailwind Css for install at Framework Guides
+  and select Viet and follow the process.
+> Watch Video 7
+
+================================
+8. Props and Props Children
+================================
+> props use to pass value to Components.
+
+> Passing Props
+  . Let we have a component with name Card.jsx
+  . We pass value to Card.jsx component via App.jsx
+
+Example: Props  
+App.jsx
+--------------------------------
+import Card from './components/Card'
+function App() {
+  return (
+    <>
+      <Card passName="Santanu" />
+      <Card passName="Mayank" />
+      <Card />
+    </>
+  )
+}
+export default App
+--------------------------------
+
+Card.jsx (Way 1 with Props)
+--------------------------------
+function Card(props){
+  return(
+    <div>
+      <h2>Hi my name is {props.passName}</h2>
+    </div>
+  )
+}
+export default Card;
+--------------------------------
+
+Card.jsx (Way 2 with Destructur the object)
+--------------------------------
+function Card({passName}){
+  return(
+    <div>
+      <h2>Hi my name is {passName}</h2>
+    </div>
+  )
+}
+export default Card;
+
+--------------------------------
+
+> Set Default value on Function
+
+Card.jsx 
+--------------------------------
+function Card({passName="Add User Name"}){
+  return(
+    <div>
+      <h2>Hi my name is {passName}</h2>
+    </div>
+  )
+}
+export default Card;
+--------------------------------
+
+Example: Props Children 
+App.jsx
+--------------------------------
+import Chai from "./Chai"
+function App() {
+  return (
+    <div>
+      <Chai name="Santanu">
+        <p>Pass this children Property</p>
+      </Chai>
+      <Chai name="Mayank">
+        <button>Simple Button</button>
+      </Chai>
+      <Chai />
+    </div>
+  )
+}
+export default App
+--------------------------------
+
+Chai.jsx
+--------------------------------
+function Chai({name='Hunny', children}){
+  return(
+    <div>
+      <h1>Chai is Ready! {name}</h1>
+      {children}
+    </div>
+  )
+}
+
+export default Chai;
+--------------------------------
+
+************* Revice + Study JavaScript + start from Video 10 *********************
+
+
+
+
+
+
+
