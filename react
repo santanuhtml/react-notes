@@ -16,7 +16,6 @@
   
 > React is libary
 
-
 > React use for SPA(Single Page Application, means page does't reload)
 
 > Core Topics:
@@ -35,6 +34,9 @@
  Note: JavaScript Object Property called Props
  
 
+> React + React-dom     use for Web Project
+  React + React Native  use for Mobile Apps
+
 ================================
 2. Project Setup
    i.  Using create-raect-app (old way)
@@ -42,23 +44,24 @@
 ================================
 > Reposetary creating(check video 2)
 
-i. Installation React Using create-raect-app (old way)
-   > ls
+i. Installation React Using create-raect-app (old way/basic way)
+   > ls  //dir for windows	
    > npx create-react-app 01basicreact
    > cd 01basicreact
-   > ls
+   > ls  //dir for windows	
    > npm run start
+     (use 'run' to start the project)
    
    (Build use for production)
    > npm run build
 
 
-> Check package.json file to understand the Project.
+> **Always Check package.json file to understand the Project.**
     On React project
     . Main dependencies are -
       "react": "^18.2.0",        //code react package
       "react-dom": "^18.2.0",    //Creare own Vertual Dom
-      "react-scripts": "5.0.1",  //Add script file on html page
+      "react-scripts": "5.0.1",  //* Add <script src="..."> link itself on index.html page
     
     . Main scripts are -
       start: use to run the project
@@ -66,9 +69,11 @@ i. Installation React Using create-raect-app (old way)
       
   
  ii. Installation React Using vite
-     > ls
+     (Vite requires Node.js version 18+ or 20+)
+     > nvm use v18
+     > ls  				
      > npm create vite@latest
-     > ls
+     > ls  
      > cd 01vitereact[PROJECT NAME]
      > npm i
      > npm run dev
@@ -81,19 +86,22 @@ i. Installation React Using create-raect-app (old way)
     . Scripts are -
       dev: use to run the project
       build: use to build and deployment the project
+      
+
+> Removing unwanted files and folders (at video 2 : 26min)
     
     
 ================================ 
 3. Introduction
    Video - 3
 ================================    
-> React Create it's own DOM called "Virtual DOM" which may compare actual HTML DOM.
+index.js
+--------------
+> React Create it's own DOM called "Virtual DOM" using ReactDOM.createRoot() method.
   const root = ReactDOM.createRoot(document.getElementById('root'));
   
-  . createRoot create "Virtual DOM"
-  
   . This "Virtual DOM" compare with Actual DOM and if find any changes on Actual DOM
-    then update those elements only. 
+    then update those elements only on 'root' element.
   
   . Using Fiber Algorithem, "Virtual DOM" did those task.
 
@@ -120,6 +128,40 @@ i. Installation React Using create-raect-app (old way)
 Note:
 Evaluate Expression: {} called Evaluate Expression means final result will display here.
 example: {user} => Santanu, {10+10+10} => 30
+
+
+
+================================
+With out HOOK:
+================================
+With out Hook UI update was very complex, 
+and to so solve this issue React js comes!
+Example:
+App.jsx
+---------------------------------
+function App(){
+  let counter = 15;
+  const addValue = () => {
+    counter++;
+    console.log(counter);
+    document.getElementById('h1').innerHTML = `Counter Value ${counter}` ;
+    document.getElementById('h2').innerHTML = `Counter Value ${counter}` ;
+    document.getElementById('button').innerHTML = `Button ${counter}` ;
+    document.getElementById('p').innerHTML = `Paragraph ${counter}` ;
+    document.getElementById('footer').innerHTML = `${counter}` ;
+  }
+  return(
+    <div>
+      <h1 id="h1">Chai and React! {counter}</h1>
+      <h2 id="h2">Counter Value: {counter}</h2>
+      <p id="p">Paragraph {counter}</p>
+      <button id="button" onClick={addValue}>Add Value {counter}</button>
+      <div id="footer">Footer {counter}</div>
+    </div>
+  )
+}
+
+export default App;
        
 ================================
 5. Hooks
@@ -132,7 +174,6 @@ example: {user} => Santanu, {10+10+10} => 30
   
 > Import Hook before use
   import { useState } from 'react'  
-  
   
 ---------------------------
 I. useState() HOOK
@@ -356,10 +397,3 @@ export default Chai;
 --------------------------------
 
 ************* Revice + Study JavaScript + start from Video 10 *********************
-
-
-
-
-
-
-
