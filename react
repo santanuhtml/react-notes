@@ -16,6 +16,7 @@
   
 > React is libary
 
+
 > React use for SPA(Single Page Application, means page does't reload)
 
 > Core Topics:
@@ -36,6 +37,8 @@
 
 > React + React-dom     use for Web Project
   React + React Native  use for Mobile Apps
+
+
 
 ================================
 2. Project Setup
@@ -128,7 +131,6 @@ index.js
 Note:
 Evaluate Expression: {} called Evaluate Expression means final result will display here.
 example: {user} => Santanu, {10+10+10} => 30
-
 
 
 ================================
@@ -258,7 +260,10 @@ export default App
 ---------------------------
 II. useEffect() HOOK
 ---------------------------
-> Use to run a function first time when browser.
+> Use to run a normal function / callback function first time 
+  when browser reload or file load or Hook load.
+  
+useEffect(()=>{} , [])
 
 Example: 
 --------------------------
@@ -281,7 +286,16 @@ export default App
 ---------------------------
 III. useCallback() HOOK
 ---------------------------
-> When a function depends on other dependencies then we use useCallback() HOOK
+When a function depends on other input/dependencyes and want to 
+run the function to get updated data on chnage of input/dependencyes, 
+then we may use useCallback Hook.
+
+to run this callback function my use useEffect() Hook.
+
+Syntax:
+const x = useCallback(fn, [input/dependencyes]);
+useEffect(()=>{x()} , []);
+
 
 ================================
 6. Virtual DOM
@@ -299,7 +313,7 @@ Important video for interview
 > Watch Video 7
 
 ================================
-8. Props and Props Children
+8. Props
 ================================
 > props use to pass value to Components.
 
@@ -381,7 +395,6 @@ function App() {
 }
 export default App
 --------------------------------
-
 Chai.jsx
 --------------------------------
 function Chai({name='Hunny', children}){
@@ -394,6 +407,97 @@ function Chai({name='Hunny', children}){
 }
 
 export default Chai;
+
 --------------------------------
+** Way to use Props syntax
+--------------------------------
+With Attribute
+--------------------------------
+const info = [
+  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
+  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
+  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
+]
+
+<Data info={info[0]} />
+<Data info={info[1]} />
+<Data info={info[2]} />
+
+----
+
+function Data({info}){
+  return(
+    <>
+      <div style={{border:'1px solid', marginBottom:'10px'}}>
+        <div>{info.name}</div>
+        <div>{info.price}</div>
+      </div>
+    </>
+  )
+}
+
+--------------------------------
+With out Attribute
+--------------------------------
+
+<Data {...info[0]} />
+<Data {...info[1]} />
+<Data {...info[2]} />
+
+----
+
+function Data({name, price}){
+  return(
+    <>
+      <div>
+        <div>{name}</div>
+        <div>{price}</div>
+      </div>
+    </>
+  )
+}
+export default Data;
+
+--------------------------------
+With loop
+--------------------------------
+import Data from "./Data";
+
+function App(){
+  const info = [
+    { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
+    { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
+    { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
+  ]
+
+  return(
+      <>
+        {
+          info.map((item, index)=> (
+            <Data key={index} info={item} />
+          ))
+        }
+      </>
+  )
+}
+
+export default App;
+
+------
+function Data({info}){
+  return(
+    <>
+      <div>
+        <h2>{info.name}</h2>
+        <p>{info.price}</p>
+      </div>
+    </>
+  )
+}
+
+export default Data;
+
+----------
+NOTE: ** Must add 'key' when using a loop on JSX.
 
 ************* Revice + Study JavaScript + start from Video 10 *********************
