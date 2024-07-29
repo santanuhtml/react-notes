@@ -16,7 +16,6 @@
   
 > React is libary
 
-
 > React use for SPA(Single Page Application, means page does't reload)
 
 > Core Topics:
@@ -34,11 +33,8 @@
  
  Note: JavaScript Object Property called Props
  
-
 > React + React-dom     use for Web Project
   React + React Native  use for Mobile Apps
-
-
 
 ================================
 2. Project Setup
@@ -57,7 +53,6 @@ i. Installation React Using create-raect-app (old way/basic way)
    
    (Build use for production)
    > npm run build
-
 
 > **Always Check package.json file to understand the Project.**
     On React project
@@ -90,9 +85,7 @@ i. Installation React Using create-raect-app (old way/basic way)
       dev: use to run the project
       build: use to build and deployment the project
       
-
 > Removing unwanted files and folders (at video 2 : 26min)
-    
     
 ================================ 
 3. Introduction
@@ -132,7 +125,6 @@ Note:
 Evaluate Expression: {} called Evaluate Expression means final result will display here.
 example: {user} => Santanu, {10+10+10} => 30
 
-
 ================================
 With out HOOK:
 ================================
@@ -164,7 +156,7 @@ function App(){
 }
 
 export default App;
-       
+ 
 ================================
 5. Hooks
    I. useState() HOOK
