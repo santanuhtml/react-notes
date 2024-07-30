@@ -1,0 +1,65 @@
+----------
+App.jsx
+----------
+
+import { useState } from "react";
+import Input from "./Input";
+
+function App(){
+  const [text, setText] = useState('Santanu')
+  const [range, setRange] = useState(10);
+  const [addNumber, setaddNumber] = useState(true);
+
+  return(
+    <>
+     <Input
+      text = {text}
+      setText ={setText}
+      range={range} 
+      setRange={setRange}
+      addNumber={addNumber}
+      setaddNumber={setaddNumber}
+     />
+    </>
+  )
+}
+
+export default App;
+
+----------
+Input.jsx
+----------
+function Input({text, setText, range, setRange, addNumber, setaddNumber}){
+  return(
+    <>
+      <div>
+        <input 
+        type="text" 
+        placeholder="Add your Name" 
+        value={text} 
+        onChange={(e) => {setText(e.target.value)}} />
+      </div>
+      <div>
+        <input 
+        type="range" 
+        min={4} 
+        max={50} 
+        value={range}
+        onChange={(e)=>{setRange(e.target.value)}}
+        />
+        <label>Your age is :{range}</label>
+      </div>
+      <div>
+      <input 
+      type="checkbox"
+      defaultChecked={addNumber}
+      onChange={()=>{setaddNumber((prev)=>!prev)}}
+      />
+      <label>Add Contact</label>
+      </div>
+    </>
+  )
+}
+export default Input;
+
+
