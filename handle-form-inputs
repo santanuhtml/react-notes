@@ -1,5 +1,6 @@
 ================================
 10. Handle form inputs
+    > Best practices
 ================================
 ----------
 App.jsx
@@ -153,8 +154,31 @@ function Inputs({
 export default Inputs;
 
 
+================================
+> Best practices
+================================
+> We should not update State on click event! we can update it
+  under a function.
+----------------
 
+<label>Text Input : </label>
+<input 
+  type="text"  
+  placeholder="Your Name"
+  value={text}
+  onChange={(e)=>{updateText(e)}}
+/>
 
+-----
+
+function updateText(e){
+  setText(e.target.value);
+}
+
+----------------
+> Here we update our State under a function.
+> Using this way we can eassyliy validate or doing 
+  others changes.
 
 
 
