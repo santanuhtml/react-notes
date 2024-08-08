@@ -1,0 +1,132 @@
+================================
+Context API
+================================
+Introduction:
+> Redux and context API use for Props state management
+> Context API only associate to React js
+> Redux associated to React, view and others libary.
+  react-redux, redux-toolkit use for React
+
+================================
+Step:1
+Let we want to create context for User
+================================
+Folder:
+[]src
+  []context
+    UserContext.js
+    UserContextProvider.jsx
+
+--------------
+UserContext.js
+--------------
+import React from "react";
+const UserContext = React.createContext();
+export default UserContext;
+
+--------------
+UserContextProvider.jsx
+--------------
+import React from "react";
+import { useState } from "react";
+import UserContext from "./UserContext";
+
+function UserContextProvider({children}){
+  const [user, setUser] = useState(null);
+
+  return(
+    <UserContext.Provider value={{user, setUser}}> 
+    {children}
+    </UserContext.Provider>
+  )
+}
+
+export default UserContextProvider;
+--------------
+
+================================
+Step:2
+Now We create two component 'Login.jsx' and 'Profile.jsx'
+
+> Login.jsx use for Set Data (using 'setUser')
+> Profile.jsx use for Get Data (using 'user')
+
+================================
+Folder:
+[]src
+  []components
+    Login.jsx
+    Profile.jsx
+
+--------------
+Login.jsx
+> we use 'Login.jsx' for Set Data (using 'setUser')
+>*** useContext() method use to target our Context.
+     const {setUser} = useContext(UserContext);
+
+--------------
+import React from "react";
+import { useState, useContext } from "react";
+import UserContext from "../context/UserContext";
+
+function Login(){
+
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const {setUser} = useContext(UserContext);
+  
+
+ const handleSumbit = (e) =>{
+    e.preventdefault;
+    setUser({username, password})
+  }
+
+  return(
+    <div>
+      <h2>Login</h2>
+      <input 
+        type="text" 
+        placeholder="username" 
+        value={username}
+        onChange={(e) => setUserName(e.target.value)}
+      />
+      <input 
+        type="text" 
+        placeholder="password" 
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={handleSumbit}>Submit</button>
+    </div>
+  )
+}
+
+export default Login;
+
+--------------
+Profile.jsx
+> we use 'Profile.jsx' use for Get Data (using 'user')
+
+>*** useContext() method use to target our Context.
+     const {user} = useContext(UserContext);
+     
+--------------
+
+import React from "react";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
+function Profile(){
+  const {user} = useContext(UserContext);
+  if(!user){
+    return <div>Please Login</div>
+  }
+  else{
+    return <div>Welcome {user.username} {user.password}</div>
+  }
+}
+export default Profile;
+--------------
+
+
+
