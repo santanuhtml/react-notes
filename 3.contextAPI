@@ -44,6 +44,8 @@ function UserContextProvider({children}){
 export default UserContextProvider;
 --------------
 
+Note: Context-related components will wrap with this <UserContextProvider>
+      
 ================================
 Step:2
 Now We create two component 'Login.jsx' and 'Profile.jsx'
@@ -128,5 +130,26 @@ function Profile(){
 export default Profile;
 --------------
 
+================================
+Step:3
+Wrapping Context related component with <UserContextProvider>
 
+App.jsx
+================================
+import Login from "./components/Login";
+import Profile from "./components/Profile";
+import UserContextProvider from "./context/UserContextProvider";
 
+function App(){
+  return(
+    <>
+      <UserContextProvider>
+        <Login />
+        <Profile />
+      </UserContextProvider>
+    </>
+  )
+}
+
+export default App;
+================================
