@@ -203,6 +203,7 @@ const [counter, setCounter] = useState(15);
 counter      => It is a simple variable
 useState(15) => Default value set here
 setCounter   => It is a function, under which variable update done
+                setCounter(counter+1);
 
 ** Same Example with simple variable 'x' and funcion 'newFunction'
 
