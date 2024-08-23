@@ -9,6 +9,9 @@ Introduction:
 > Redux associated to React, view and others libary.
   react-redux, redux-toolkit use for React
 
+> React.createContext(); => Call Context API method
+> useContext(); => use to Add data and Show data from Context API
+
 ================================
 1. Basic Example
 Step:1
