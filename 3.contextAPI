@@ -1,5 +1,7 @@
 ================================
 Context API
+ 1. Basic Example
+ 2. Example with Fetch Data and loop
 ================================
 Introduction:
 > Redux and context API use for Props state management
@@ -8,6 +10,7 @@ Introduction:
   react-redux, redux-toolkit use for React
 
 ================================
+1. Basic Example
 Step:1
 Let we want to create context for User
 ================================
@@ -153,3 +156,125 @@ function App(){
 
 export default App;
 ================================
+
+================================
+ 2. Example with Fetch Data and loop
+ 
+Step:1
+Lets create context for Loop
+================================
+Folder:
+[]src
+  []context
+    LoopContext.js
+    LoopContextProvider.js
+--------------
+LoopContext.js
+--------------
+import React from "react";
+const LoopContext = React.createContext();
+export default LoopContext;
+
+
+--------------
+LoopContextProvider.js
+--------------
+import React, { useState, useEffect } from "react";
+import LoopContext from "./LoopContext";
+
+
+function LoopContextProvider({ children }) {
+
+  //Fixed Data
+  const [info, setInfo] = useState([]);
+  useEffect(()=>{
+    const info = [
+      { name: "Apple", id: 1 },
+      { name: "Dragonfruit", id: 2 },
+      { name: "Passionfruit", id: 3 },
+    ]
+    setInfo(info)
+  }, [])
+
+  //Api Data
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    async function getData(){
+      const response = await fetch("https://dummyjson.com/users");
+      const data = await response.json(); 
+      return data;
+    }
+    getData().then(data=>{
+      setUsers(data.users);
+    })
+
+  }, []); // Empty dependency array means this runs once when the component mounts.
+
+  return (
+    <LoopContext.Provider value={{ info, users }}>
+      {children}
+    </LoopContext.Provider>
+  );
+}
+
+export default LoopContextProvider;
+
+
+================================
+Step:2
+Now We create component 'LoopCardDisplay.js' to display data
+
+> LoopCardDisplay.js use to display data
+================================
+import React, { useContext } from "react";
+import LoopContext from "../context/LoopContext";
+
+function DisplayData() {
+  const { info, users } = useContext(LoopContext);
+
+  return (
+    <div>
+      <h2>Info:</h2>
+      <ul>
+        {info.map(item => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
+
+      <h2>Users:</h2>
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>
+            {user.firstName} {user.lastName} (ID: {user.id})
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default DisplayData;
+
+================================
+Step:3
+Wrapping Context related component with <LoopContextProvider>
+
+App.jsx
+================================
+import React from "react";
+import LoopCardDisplay from "./components/LoopCardDisplay";
+import LoopContextProvider from "./context/LoopContextProvider";
+function App(){
+  console.log(123);
+  return(
+    <div>
+      <LoopContextProvider>
+        <LoopCardDisplay />
+      </LoopContextProvider>
+    </div>
+  )
+}
+
+export default App;
+================================
+
