@@ -1,0 +1,172 @@
+================================
+Redux Toolkit
+================================
+Introduction:
+> 'Redux' is a State management library that may use any 
+  JavaScript libraries like React js, Vue js, etc.
+  
+> Use 'react-redux' for React js project
+
+> 'Redux Toolkit' is an updated version of Core Redux 
+  contain other essential packages like Redux Thunk and Reselect
+  
+> Redux Toolkit has steps
+  store, 
+  createSlice,
+  reducers, 
+  useSelector, 
+  useDispatch
+  
+================================
+Redux Package install:
+
+Visit Redux Toolkit
+> npm install @reduxjs/toolkit
+> npm install react-redux
+
+================================
+
+creating folder unser []src
+[]src
+  []app
+    store.js
+  []features
+    []input
+      inputSlice.js
+  []components
+    Input.jsx
+    Output.jsx
+      
+Note: yournameSlice.js is Redux toolkit naming convention.
+
+================================
+store.js
+================================
+import { configureStore } from "@reduxjs/toolkit";
+import inputSliceReducer from "../features/input/inputSlice";
+export const store = configureStore({
+  reducer: {
+    input: inputSliceReducer
+  }
+});
+
+================================
+inputSlice.js
+================================
+import {createSlice} from "@reduxjs/toolkit";
+
+const initialState = {
+  //inputs:[{name:'santanu'}]
+  inputs: [{firstName:'santanu', lastName:'Chowdhury'}]
+}
+
+export const inputSlice = createSlice({
+  name:'input',
+  initialState,
+  reducers:{
+    addInput: (state, action) => {
+      const input ={
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName
+      }
+      state.inputs.push(input);
+      //state.inputs = [input]
+      
+    },
+  }
+})
+
+export const { addInput } = inputSlice.actions
+export default  inputSlice.reducer
+
+================================
+main.jsx
+================================
+import { createRoot } from 'react-dom/client'
+import { Provider } from 'react-redux'
+import { store } from './app/store.js'
+import App from './App.jsx'
+
+
+createRoot(document.getElementById('root')).render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+)
+
+================================
+Input.jsx
+================================
+
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {addInput} from "../features/input/inputSlice"
+
+function Input(){
+  
+  const [firstName, setFirstName] = useState('Santanu');
+  const [lastName, setLastName] = useState('Chowdhury')
+  const dispatch  = useDispatch();
+  
+  function addInputHandler(e){
+    e.preventDefault();
+    dispatch(addInput({firstName, lastName}));
+    setFirstName('');
+    setLastName('')
+  }
+
+  return(
+    <div>
+      <form onSubmit={addInputHandler}>
+        <input type="text" value={firstName} onChange={(e)=>setFirstName(e.target.value)} />
+        <br />
+        <input type="text" value={lastName} onChange={(e)=>setLastName(e.target.value)}  />
+        <br />
+        <button>Submit</button>
+      </form>
+    </div>
+  )
+}
+
+export default Input;
+
+
+================================
+Output.jsx
+================================
+import { useSelector } from "react-redux";
+
+function Output() {
+  const inputs = useSelector(state => state.input.inputs);
+
+  return (
+    <div>
+      {inputs.map((input, index) => (
+        <div key={index}>
+          {input.firstName} {input.lastName}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default Output;
+
+
+================================
+App.jsx
+================================
+import Input from "./components/Input";
+import Output from "./components/Output";
+function App(){
+  return(
+    <div>
+      <Input/>
+      <Output />
+    </div>
+  )
+}
+
+export default App;
+
+
