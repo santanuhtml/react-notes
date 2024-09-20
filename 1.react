@@ -498,6 +498,98 @@ NOTE: ** Must add 'key' when using a loop on JSX.
 ================================
 9. Reusable Component	
 ================================
+Example:1
+Note:
+* First We have to create everything on a component
+----------
+Step1: BASIC INPUT COMPONENT
+Input.jsx
+----------
+import React, { useRef, useState } from "react";
+function Input(){
+  const myRef = useRef(null)
+  const [data, setData] = useState("");
+  function myChanges(e){
+    setData(e.target.value);
+    console.log(myRef.current);
+  }
+  return(
+    <>
+      <input 
+        type="text" 
+        value={data}
+        ref={myRef}
+        onChange={myChanges}
+      />
+    </>
+  )
+}
+export default Input;
+
+----------
+App.jsx
+----------
+import React from "react";
+import Input from "./Input";
+function App(){
+  return(
+    <div>
+      <Input />
+    </div>
+  )
+}
+
+export default App;
+
+----------
+Step2:
+.**Now keep all State, function code to 'App.js' 
+  to make it reusable.
+.**Pass everything via props like state and function in here.
+Input.jsx
+----------
+import React, { useRef, useState } from "react";
+function Input({data, myRef, myChanges}){
+  return(
+    <>
+      <input 
+        type="text" 
+        value={data}
+        ref={myRef}
+        onChange={myChanges}
+      />
+    </>
+  )
+}
+export default Input;
+
+----------
+App.jsx
+----------
+import React, { useRef, useState } from "react";
+import Input from "./Input";
+function App(){
+  const myRef = useRef(null)
+  const [data, setData] = useState("");
+  function myChanges(e){
+    setData(e.target.value);
+    console.log(myRef.current);
+  }
+  return(
+    <div>
+      <Input 
+        myRef={myRef}
+        data={data}
+        myChanges={myChanges}
+      />
+    </div>
+  )
+}
+
+export default App;
+
+----------
+Example:2
 ----------
 App.jsx
 ----------
