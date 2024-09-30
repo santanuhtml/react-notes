@@ -53,7 +53,7 @@ import dataSlice from "./dataSlice";
 export const store = configureStore({
   reducer: {
     //Add reducer list
-    storeData: dataSlice,
+    storeData: dataSlice, //dataSlice.js file name
   }
 });
 
