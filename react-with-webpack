@@ -49,6 +49,10 @@ export default App;
 
 . Update 'webpack.config.js' for dev server
 -------------
+output: {
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+},
 devServer: {
   open: true,
   host: 'localhost',
