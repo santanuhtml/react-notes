@@ -17,7 +17,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import dataSlice from "./dataSlice";
 export const store = configureStore({
   reducer:{
-    storeData : dataSlice, //dataSlice.js file name
+    storeData : dataSlice,
   }
 })
 
@@ -33,7 +33,7 @@ export const dataSlice = createSlice({
   reducers:{
     updateData:(state, action) =>{
       const addData = {
-        fetchedData : action.payload.fetchedData,
+        data01 : action.payload.data01,
       }
       state.initialData = [addData];
     }
@@ -42,7 +42,6 @@ export const dataSlice = createSlice({
 
 export const {updateData} = dataSlice.actions;
 export default dataSlice.reducer;
-
 
 --------------------------------
 App.js
@@ -61,7 +60,7 @@ import { updateData } from "./store/dataSlice";
 // *********
 
 function App(){
-  const [fetchedData, setFetchedData] = useState();
+  const [data01, setData01] = useState();
 
   //Check here *********
   const dispatch =  useDispatch();
@@ -74,10 +73,10 @@ function App(){
       return postData;
     }
     getData().then((postData)=>{
-      setFetchedData(postData.posts);
+      setData01(postData.posts);
 
       //Check here *********
-      dispatch(updateData({fetchedData: postData.posts}))
+      dispatch(updateData({data01: postData.posts}))
       // *********
     })
   },[])
@@ -97,7 +96,6 @@ function App(){
 }
 
 export default App;
-
 
 --------------------------------
 PostList.jsx
@@ -119,7 +117,7 @@ function PostList(){
     <>
         <ul>
           {postData.map((item, key)=>(
-              item.fetchedData.map((item2,key2)=>(
+              item.data01.map((item2,key2)=>(
                 <li key={key2}>title:{item2.title}</li>
               ))
           ))}
@@ -127,11 +125,8 @@ function PostList(){
     </>
   )
 }
+
 export default PostList;
-
-
-
-
 
 
 
