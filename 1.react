@@ -499,6 +499,51 @@ NOTE: ** Must add 'key' when using a loop on JSX.
 9. Reusable Component	
 ================================
 Example:1
+Creating Reusable Button
+----------
+Button.jsx
+----------
+import React from "react";
+function Button({
+  children,
+  bgColor = "btn-primary",
+  textColor="text-white",
+  className = '',
+  ...props
+}){
+  return(
+    <button className={`btn ${bgColor} ${ textColor}`} {...props}>{children}</button>
+  )
+}
+
+export default Button;
+
+----------
+App.jsx
+----------
+import React from "react";
+import Button from "./components/Button";
+function App(){
+  return(
+    <>
+      <Button>Button 03</Button>
+
+      <Button 
+      bgColor="btn-primary-dark"
+      textColor="text-grey"
+      type ="button"
+      >Button 01</Button>
+
+      <Button 
+      bgColor="btn-secondary"
+      textColor="text-white"
+      type ="button"
+      >Button 02</Button>
+    </>
+  )
+}
+export default App;
+
 Note:
 * First We have to create everything on a component
 ----------
