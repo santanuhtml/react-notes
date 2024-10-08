@@ -544,7 +544,8 @@ function App(){
 }
 export default App;
 
-Note:
+----------
+Example:2
 * First We have to create everything on a component
 ----------
 Step1: BASIC INPUT COMPONENT
