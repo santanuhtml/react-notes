@@ -1,0 +1,218 @@
+==========================
+React hook form
+==========================
+install Package:
+> npm i react-hook-form
+
+Note:
+. Import useForm function which returns object contain
+  different methods like register(), handleSubmit() etc.
+
+--------------------------
+Basic Example:1
+--------------------------
+
+import React from "react";
+import { useForm } from "react-hook-form";
+
+function App(){
+
+  const {register, handleSubmit} = useForm();
+  async function getFormData(data){
+    console.log(data);
+  }
+
+  return(
+    <>
+      <form onSubmit={handleSubmit(getFormData)}>
+        <input 
+          type="text" 
+          placeholder="Enter your full name"
+          {...register('name', {
+            required:true,
+          })}
+        />
+        <input 
+          type="email" 
+          placeholder="Enter your full name"
+          {...register('email', {
+            required:true,
+          })}
+        />
+        <button>Submit</button>
+      </form>
+    </>
+  )
+}
+
+export default App;
+
+--------------------------
+*** Example with reusable components ***
+--------------------------
+[]src
+  []components
+    - Button.jsx
+    - Input.jsx
+    - Select.jsx
+ - App.jsx  
+
+--------------------------
+Input.jsx
+--------------------------
+import React from "react";
+import { useId } from "react";
+
+function Input({
+  label,
+  type ="text",
+  className="",
+  ...props
+
+},ref){
+  const id = useId();
+  return(
+    <>
+      {label && <label htmlFor={id}>{label}</label>}
+      <input 
+        id={id} 
+        type={type} 
+        className={`form-inline ${className}`}
+        ref={ref}
+        {...props}
+       />
+    </>
+  )
+}
+export default React.forwardRef(Input);
+
+
+--------------------------
+Select.jsx
+--------------------------
+import React from "react";
+import { useId } from "react";
+
+function Select({
+  label,
+  options,
+  className='',
+  ...props
+  
+},ref){
+  const id = useId();
+  return(
+    <>
+      {label && <label htmlFor={id}>{label}</label>}
+      <select
+        className={` ${className}`}
+        id={id}
+        ref={ref}
+        {...props}
+      >
+        {options?.map((option, index)=>(
+           <option key={index} value={option}>{option}</option>
+        ))}
+        
+      </select>
+    </>
+  )
+}
+export default React.forwardRef(Select);
+
+
+--------------------------
+Button.jsx
+--------------------------
+import React from "react";
+function Button({
+  children,
+  bgColor = "btn-primary",
+  textColor="text-white",
+  className = '',
+  ...props
+}){
+  return(
+    <button className={`btn ${bgColor} ${ textColor}`} {...props}>{children}</button>
+  )
+}
+
+export default Button;
+
+--------------------------
+App.jsx
+--------------------------
+import React from "react";
+import Button from "./components/Button";
+import Input from "./components/Input";
+import Select from "./components/Select";
+import { useForm } from "react-hook-form";
+
+function App(){
+
+  const {register, handleSubmit} = useForm();
+  async function getFormData(data){
+    console.log(data);
+  }
+
+  return(
+    <>
+
+      <form onSubmit={handleSubmit(getFormData)}>
+        <Input 
+          label="Full Name :"
+          type="text"
+          placeholder="Enter your full name"
+          {...register('name', {
+            required:true,
+          })}
+        />
+        <br />
+        <Input 
+          label="Email :"
+          type="email"
+          placeholder="Enter your Email"
+          {...register('email', {
+            required:true,
+          })}
+        />
+        <br />
+        <Select
+          label="Select:"
+          options={['Kolkata', 'Delhi']}
+          {...register('city', {
+            required:true,
+          })}
+        />
+        <Button>Submit</Button>
+      </form>
+    </>
+  )
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
