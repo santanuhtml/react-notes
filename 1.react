@@ -164,6 +164,7 @@ export default App;
    I. useState() HOOK
    II. useEffect() HOOK
    III. useCallback() HOOK
+   IV. useRef()
 ================================  
 
 > Hook use to update or changes on UI.  
@@ -290,6 +291,27 @@ to run this callback function my use useEffect() Hook.
 Syntax:
 const x = useCallback(fn, [input/dependencyes]);
 useEffect(()=>{x()} , []);
+
+---------------------------
+IV. useRef()
+. It is commonly used to access and manipulate DOM elements
+---------------------------
+import React from "react";
+import { useRef } from "react";
+
+function App(){
+  const inputRef = useRef(null);
+  function myfun(){
+    console.log(inputRef.current.value)
+  }
+  return(
+    <>
+      <input type="text" ref={inputRef} onChange={myfun} />
+    </>
+  )
+}
+
+export default App;
 
 
 ================================
