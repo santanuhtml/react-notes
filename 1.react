@@ -333,14 +333,15 @@ function App() {
 
   return (
     <>
-      <input type="text" ref={inputRef} placeholder="First input" /> 
+      <input type="text" ref={inputRef} /> 
       <br />
-      <textarea type="text" onChange={myfun} placeholder="Second input" />
+      <textarea type="text" onChange={myfun} placeholder="Type here" />
     </>
   );
 }
 
 export default App;
+
 
 ================================
 6. Virtual DOM
