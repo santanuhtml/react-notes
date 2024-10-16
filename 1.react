@@ -165,6 +165,7 @@ export default App;
    II. useEffect() HOOK
    III. useCallback() HOOK
    IV. useRef()
+    V. forwardRef()
 ================================  
 
 > Hook use to update or changes on UI.  
@@ -342,6 +343,49 @@ function App() {
 
 export default App;
 
+---------------------------
+V. forwardRef()
+   To send Ref to child component we use forwardRef
+---------------------------
+App.jsx
+-----------------
+import React, { useRef, useState } from "react";
+import Input from "./Input";
+
+function App() {
+  const inputRef = useRef(null);
+  const [value1, setValue1] = useState('');
+
+  function myfun(e) {
+    const newValue = e.target.value; 
+    setValue1(newValue);             
+    inputRef.current.value = newValue; 
+  }
+
+  return (
+    <>
+      <Input ref={inputRef} />  {/* Passing ref to child compnent */}
+      <br />
+      <textarea type="text" onChange={myfun} placeholder="Type here" />
+    </>
+  );
+}
+
+export default App;
+
+-----------------
+Input.jsx
+-----------------
+import React from "react";
+function Input(props,ref){ {/* get the ref */}
+  return(
+    <>
+      <input type="text" ref={ref} />
+    </>
+  )
+}
+
+export default React.forwardRef(Input);
 
 ================================
 6. Virtual DOM
