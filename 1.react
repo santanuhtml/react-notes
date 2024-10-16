@@ -296,6 +296,9 @@ useEffect(()=>{x()} , []);
 IV. useRef()
 . It is commonly used to access and manipulate DOM elements
 ---------------------------
+Example1: Get input value and send to console
+---------------------------
+
 import React from "react";
 import { useRef } from "react";
 
@@ -313,6 +316,31 @@ function App(){
 
 export default App;
 
+---------------------------
+Example2: Get value from text area and show another input
+---------------------------
+import React, { useRef, useState } from "react";
+
+function App() {
+  const inputRef = useRef(null);
+  const [value1, setValue1] = useState('');
+
+  function myfun(e) {
+    const newValue = e.target.value; // Get the new value from the second input
+    setValue1(newValue);             // Update state with the new value
+    inputRef.current.value = newValue; // Update the value of the first input
+  }
+
+  return (
+    <>
+      <input type="text" ref={inputRef} placeholder="First input" /> 
+      <br />
+      <textarea type="text" onChange={myfun} placeholder="Second input" />
+    </>
+  );
+}
+
+export default App;
 
 ================================
 6. Virtual DOM
