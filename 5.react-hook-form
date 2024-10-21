@@ -4,6 +4,7 @@ React hook form
 2. Basic Example
 3. Example with reusable components
 4. Form submit using POST method
+5. Form submit using POST method and response message
 ==========================
 1. Introduction
 --------------------------
@@ -202,9 +203,88 @@ export default App;
 --------------------------
 4. Form submit using POST method
 --------------------------
+import React from "react";
+import Header from "./Header";
+import Input from "../components/Input";
+import { useForm } from "react-hook-form";
+import Button from "../components/Button";
+
+function Contact() {
+  const { register, handleSubmit, reset } = useForm();
+
+  function formSubmit(data) {
+    fetch(`https://cp-express-api.netlify.app/api/users/add/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then((res) => res.json())  
+    .then((data) => {
+      console.log(data);
+      reset();
+    }) 
+    .catch((error) => console.error('Error:', error));  
+  }
+  
+  return (
+    <>
+      <Header />
+      <div>Contact Page</div>
+      <form onSubmit={handleSubmit(formSubmit)}>
+        <Input
+          label="First Name:"
+          type="text"
+          placeholder="First Name"
+          {...register('fname', {
+            required: true,
+          })}
+        />
+        <Input
+          label="Last Name:"
+          type="text"
+          placeholder="Last Name"
+          {...register('lname', {
+            required: true,
+          })}
+        />
+        <Input
+          label="Your Email Id:"
+          type="email"
+          placeholder="Valid Email"
+          {...register('email', {
+            required: true,
+          })}
+        />
+        <Input
+          label="Password"
+          type="password"
+          placeholder="password"
+          {...register('password', {
+            required: true,
+          })}
+        />
+        <Input
+          label="Date of birth:"
+          type="date"
+          placeholder="Age"
+          {...register('dob', {
+            required: true,
+          })}
+        />
+        <Button bgColor="bg-red">Submit</Button>
+      </form>
+    </>
+  );
+}
+
+export default Contact;
 
 
-
+--------------------------
+5. Form submit using POST method and response message
+--------------------------
 
 
 
