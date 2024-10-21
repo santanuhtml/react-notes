@@ -1,6 +1,12 @@
 ==========================
 React hook form
+1. Introduction
+2. Basic Example
+3. Example with reusable components
+4. Form submit using POST method
 ==========================
+1. Introduction
+--------------------------
 install Package:
 > npm i react-hook-form
 
@@ -9,7 +15,7 @@ Note:
   different methods like register(), handleSubmit() etc.
 
 --------------------------
-Basic Example:1
+2. Basic Example
 --------------------------
 
 import React from "react";
@@ -48,7 +54,7 @@ function App(){
 export default App;
 
 --------------------------
-*** Example with reusable components ***
+3. Example with reusable components
 --------------------------
 []src
   []components
@@ -193,6 +199,9 @@ function App(){
 export default App;
 
 
+--------------------------
+4. Form submit using POST method
+--------------------------
 
 
 
